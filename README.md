@@ -1,2 +1,3 @@
 # topun
-Experimentation of Topological Uncertainty
+Modifications of the Topological Uncertainty repo from https://github.com/tlacombe/topologicalUncertainty for simple experiments on PyTorch
+
