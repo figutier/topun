@@ -36,7 +36,6 @@ def _get_vertices_and_edges_values_from_input(model, x_train, layers_id=None, on
     nodes_values = []
     edges_values = []
     current_x = x_train.to(next(model.parameters()).device)
-    print(next(model.parameters()).device)
     module_list = [i for i in model.children()][0]
     layers = [param for name, param in model.named_parameters() if 'bias' not in name]
 
