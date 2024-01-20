@@ -14,7 +14,10 @@ def _matrix_and_input(x_train, W):
     :return: activated weights, i.e. (x_train[k][i] W[i,j]) for i=1..D, for k = 1..N
     '''
     with torch.no_grad():
-        return np.array([np.dot(np.diag(x), W.T) for x in x_train])
+ 
+        
+         
+        return np.array([np.dot(np.diag(x), W.T.to('cpu')) for x in x_train.to('cpu')])
 
 
 def _get_vertices_and_edges_values_from_input(model, x_train, layers_id=None, only_fc=True):
@@ -27,10 +30,13 @@ def _get_vertices_and_edges_values_from_input(model, x_train, layers_id=None, on
     :return: a list of edges values. `X[ell][j]` gives the values of the `layers_id[ell]`-th layer
              for the j-th data of (dim d_ell).
              and a list of weight values. W[ell][j] gives the values of the ell-to-(ell+1)-th matrix for the j-th data.
+
+    Implementation of single layer focus on original code momentarily ommited for convenience 
     '''
     nodes_values = []
     edges_values = []
-    current_x = x_train
+    current_x = x_train.to(next(model.parameters()).device)
+    print(next(model.parameters()).device)
     module_list = [i for i in model.children()][0]
     layers = [param for name, param in model.named_parameters() if 'bias' not in name]
 
